@@ -1,0 +1,13 @@
+.DS_Store
+._*
+.Spotlight-V100
+.Trashes
+*.aux
+*.log
+*.toc
+*.synctex.gz
+*.fdb_latexmk
+*.fls
+*.bbl
+*.blg
+*.pdfsync

@@ -1,0 +1,134 @@
+\documentclass[tikz, border=5pt]{standalone}
+
+\usetikzlibrary{arrows.meta}
+\usepackage{amsmath}
+\usepackage[UTF8]{ctex}
+
+\begin{document}
+
+\begin{tikzpicture}[x=1.8cm, y=0.008cm, >=stealth, scale=0.9, font=\small]
+
+    % --- 坐标轴与边框 ---
+    \draw[thick] (0,0) rectangle (6.69, 1600);
+    
+    % X轴刻度与标签
+    \foreach \x in {1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 6.69} {
+        \draw (\x, 0) -- (\x, 15);
+        \node[below] at (\x, -10) {\x};
+    }
+    \node[below] at (0, -10) {Fe};
+    \node[below] at (3.345, -90) {$w(\text{C})/\%$};
+    
+    % 左侧Y轴刻度与标签
+    \foreach \y in {0, 200, 400, 600, 800, 1000, 1200, 1400, 1600} {
+        \draw (0, \y) -- (0.05, \y);
+        \node[left] at (-0.1, \y) {\y};
+    }
+    \node[rotate=90] at (-1, 800) {温度 / $^\circ$C};
+
+    % --- 关键温度水平线及标签 ---
+    \node[above] at (0.3,1530) {1538};
+    \draw (0.53, 1495) -- (0.9, 1540) node[right] {1495};
+    \node[right] at (0,1394) {1394};
+    \node[right] at (0,919) {912};
+    \draw (0.25, 770)  -- (-0.2, 720)  node[left] {770};
+
+    % --- 绘制 Fe-Fe3C 稳定相图 (实线) ---
+    % 左上角包晶区
+    \draw[thick] (0, 1538) -- (0.09, 1495); % A-H
+    \draw[thick] (0.17, 1495) -- (0, 1394);
+    \draw[thick] (0, 1538) -- (0.53, 1495); % A-B
+    \draw[thick] (0.09, 1495) -- (0, 1394);
+    
+    % 奥氏体区边界
+    \draw[thick] (0.17, 1495) -- (2.11, 1148); % J-E
+    \draw[thick] (0, 912) to[out=-70, in=155] (0.77, 727); % G-S
+    \draw[thick] (2.11, 1148) to[out=-132, in=57] (0.77, 727); % E-S
+    
+    % 液相线边界
+    \draw[thick] (0.53, 1495) to[out=-19, in=150] (4.30, 1148); % B-C
+    
+    % 共晶线与共析线
+    \draw[very thick, green!60!black] (2.11, 1148) -- (6.69, 1148); % E-F 共晶线
+    \draw[very thick, blue!60!black] (0.09, 727) -- (6.69, 727); % P-K 共析线
+    \draw[very thick, red!60!black] (0.53, 1495) -- (0.09, 1495); % H-B 包晶线
+    
+    % 铁素体溶解度线
+    \draw[thick] (0, 912) to[out=-80, in=90] (0.09, 727); % G-P
+    \draw[thick] (0.09, 727) to[out=-90, in=80] (0, 480); % P-Q
+    
+    % --- 绘制 Fe-石墨与计算曲线 (虚线/点划线) ---
+    \draw[thick, dashed] (2.08, 1154) -- (6.69, 1154); % E'-C'-右边界
+    \draw[thick, dashed] (0.092, 738) -- (6.69, 738); % S'-K'
+    \draw[thick, dashed] (2.08, 1154) -- (0.68, 738); % E'-S'
+    
+    % C'-D' (Fe-石墨液相线)
+    \draw[thick, dashed, ->] (4.26, 1154) -- (5.6, 1600) node[below right] {$D'$}; 
+    % C-D (Fe3C液相线计算值)
+    \draw[thick, dash dot] (4.30, 1148) to[out=20, in=180] (6.69, 1227); 
+    
+    % A0及Curie温度
+    \draw[thick, dashed] (0, 230) -- (6.69, 230); % A0 230线
+    \draw[thick, dotted] (0.08, 770) -- (0.4, 770); % 铁素体居里温度
+    
+    % --- 节点字母与特征数值标注 ---
+    \node[left] at (0, 1555) {$A$};
+    \draw (0.09, 1495) -- (-0.2, 1500) node[left] {$H$};
+    \node[below right] at (0.05, 1478) {$J$};
+    \node[right] at (0.33, 1467) {$B$};
+    \node[left] at (0, 1445) {$N$};
+    \node[left] at (0, 912) {$G$};
+    \node[right] at (0.02, 700) {$P$};
+    \node[left]  at (0, 480) {$Q$};
+
+    \node[below right] at (2.11, 1140) {$E(2.11)$};
+    \node[above right] at (2.08, 1154) {$2.08$};
+    \node[below] at (4.30, 1140) {$C(4.30)$};
+    \draw (4.26, 1160) -- (4.10,1240) node[above,align=center] {$C'$\\[-0.5em]$(4.26)$};
+    
+    \node[below] at (0.77, 715) {$S(0.77)$};
+    \draw (0.68, 745) -- (0.66, 800) node[above, align=center] {$S'$\\[-0.5em]$(0.68)$};
+
+    % 水平线上的中心温度标注
+    \node[above] at (3.5, 1154) {1154};
+    \node[below] at (3.5, 1148) {1148};
+    \node[above] at (3.5, 738) {738};
+    \node[below] at (3.5, 727) {727};
+    \node[above] at (3.5, 230) {230};
+
+    % 右侧边界与延伸标签
+    \draw (6.69, 1227) -- (6.74, 1227);
+    \node[above] at (6.3,1227) {1227};
+    \node[above right] at (6.69, 1227) {$D$};
+    \node[above right] at (6.69, 1154) {$E'$};
+    \node[below right] at (6.69, 1148) {$F$};
+    \node[above right] at (6.69, 738) {$K'$};
+    \node[below right] at (6.69, 727) {$K$};
+    
+
+    % --- 内部相区标注 ---
+    \draw (0.02, 1468) -- (-0.6, 1468) node[left,align=center] {$\delta(\text{Fe})$\\[-0.5em]{\scriptsize 高温铁素体}};
+    \node at (3.5, 1450) {L};
+    \node at (2.0, 1300) {L$+\gamma$};
+    \node at (6.15, 1190) {L$+\text{Fe}_3\text{C}$};
+    \node[align=center] at (0.8, 1100) {$\gamma(\text{Fe})$\\[-0.5em]{\scriptsize 奥氏体A}};
+    \node at (4.0, 940) {$\gamma+\text{Fe}_3\text{C}$};
+    \node at (3.5, 480) {$\alpha+\text{Fe}_3\text{C}$};
+    \draw (6.69,900) -- (6.3,900) node[left,align=center] {Fe$_3$C\\[-0.5em]{\scriptsize 渗碳体}};
+    \draw (0, 480) -- (0.5, 480) node[right,align=center] {$\alpha(\text{Fe})$\\[-0.5em]{\scriptsize 铁素体F}};
+
+    % --- 底部图例说明 ---
+    \begin{scope}[yshift=-50]
+        % 左栏
+        \draw[thick] (0, 0) -- (0.8, 0) node[right] {Fe-Fe$_3$C相图};
+        \draw[thick, dashed] (0, -60) -- (0.8, -60) node[right] {Fe$_3$C液相线(计算)};
+        \draw[thick, dash dot] (0, -120) -- (0.8, -120) node[right] {Fe-石墨相图};
+        
+        % 右栏
+        \draw[thick, dotted] (3.5, 0) -- (4.3, 0) node[right] {铁素体的居里温度};
+        \draw[thick, dashed, ->] (3.5, -60) -- (3.9, -60);
+        \draw[thick, dashed] (3.9, -60) -- (4.3, -60) node[right] {$\chi$-Fe(Fe$_{2.2}$C)转变(计算)};
+    \end{scope}
+\end{tikzpicture}
+
+\end{document}

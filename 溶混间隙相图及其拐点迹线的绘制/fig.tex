@@ -1,0 +1,111 @@
+\documentclass[tikz, border=5pt]{standalone}
+
+\usetikzlibrary{arrows.meta}
+\usepackage{amsmath}
+\usepackage[UTF8]{ctex}
+
+\begin{document}
+
+\begin{tikzpicture}[>=Stealth, scale=1.15]
+    % 1. 左图：自由能-成分曲线 (G-x 图)
+    \begin{scope}[shift={(0,0)}]
+        % 外框
+        \draw[thick] (0,0) rectangle (5,5);
+        
+        % 零水平线
+        \draw[thick] (0,2.5) -- (5,2.5);
+        
+        % 轴标签
+        \node[left] at (0,4.7) {$+$};
+        \node[left] at (0,0.3) {$-$};
+        \node[left, rotate=90, anchor=south, yshift=0.2cm] at (0,2.5) {自由能 $G$};
+        \node[below=0.1cm] at (0,0) {A};
+        \node[below=0.1cm] at (5,0) {B};
+        \node[below=0.5cm] at (2.5,0) {成分};
+        
+        % 绘制虚线项
+        % G° 直线
+        \draw[dotted, thick] (0, 2.0) -- (5, 4.0) node[pos=0.5,yshift = -5, above left] {\scriptsize$G^\circ$};
+        % \Delta H_m 曲线 (向上凸)
+        \draw[dotted, thick] (0, 2.5) .. controls (1.5, 4.3) and (3.5, 4.3) .. (5, 2.5) node[pos=0.5, above] {\scriptsize$\Delta H_{\mathrm{m}}$};
+        % -T\Delta S_m 曲线 (向下凹)
+        \draw[dotted, thick] (0, 2.5) .. controls (1.2, 0.7) and (3.8, 0.7) .. (5, 2.5) node[pos=0.5, below] {\scriptsize$-T\Delta S_{\mathrm{m}}$};
+        
+        % 绘制带双极小值的总自由能 G 实线 (特征点向内收拢)
+        \draw[ultra thick] plot[smooth, tension=0.75] coordinates {
+            (0, 2.2) (1.03, 1.66) (2.21, 2.8) (3.19, 2.22) (5, 3.8)
+        };
+        \node[left] at (0.4, 1.8) {$G$};
+        
+        % 绘制公切线
+        \draw[dashed, thick, red] (1.03, 1.66) -- (3.15, 2.19);
+        
+        % 标记特征点并添加标签
+        % 点 E (左侧切点)
+        \fill[red] (1.03, 1.66) circle (2.5pt) node[below] {\scriptsize$E$};
+        \draw[dotted, thick, red] (1.03, 1.66) -- (1.03, 0);
+        % 点 q (左侧拐点)
+        \fill[blue] (1.48, 2.08) circle (2.5pt) node[above left] {\scriptsize$q$};
+        \draw[dotted, thick, blue] (1.48, 2.08) -- (1.48, 0);
+        % 点 r (右侧拐点)
+        \fill[blue] (2.70, 2.45) circle (2.5pt) node[above right] {\scriptsize$r$};
+        \draw[dotted, thick, blue] (2.70, 2.45) -- (2.70, 0);
+        % 点 F (右侧切点)
+        \fill[red] (3.15, 2.19) circle (2.5pt) node[below] {\scriptsize$F$};
+        \draw[dotted, thick, red] (3.15, 2.19) -- (3.15, 0);
+
+        % 图题
+        \node[below=1.2cm] at (2.5,0) {$T_1$下的自由能-成分曲线 ($\Omega >0$)};
+    \end{scope}
+
+    % =========================================================================
+    % 2. 右图：溶混间隙相图 (T-x 图)
+    % =========================================================================
+    \begin{scope}[shift={(6.5,0)}]
+        % 外框
+        \draw[thick] (0,0) rectangle (5,5);
+        
+        % 轴标签
+        \node[left, rotate=90, anchor=south, yshift=0.2cm] at (0,2.5) {温度 $T$};
+        \node[below=0.1cm] at (0,0) {A};
+        \node[below=0.1cm] at (5,0) {B};
+        \node[below=0.5cm] at (2.5,0) {成分};
+        
+        % 绘制 Binodal 两相平衡线 (红线实线)
+        \draw[ultra thick, red, domain=0.42:3.76, samples=100] plot (\x, {4.2 - 1.5*(\x - 2.09)^2});
+        
+        % 绘制 Spinodal 拐点迹线 (蓝色虚线)
+        \draw[ultra thick, blue, dashed, domain=1.12:3.06, samples=100] plot (\x, {4.2 - 4.5*(\x - 2.09)^2});
+        
+        % 临界点 Tc
+        \fill[black] (2.09, 4.2) circle (2.5pt) node[above] {\scriptsize$T_{\mathrm{c}}$};
+
+        % 绘制 T1 等温线，对应左图的温度状态
+        \def\Tone{2.5}
+        \draw[thick, dashed, gray] (0, \Tone) -- (5, \Tone) node[right, black] {$T_1$};
+        
+        % 在 T1 线上的投影点
+        \fill[red] (1.03, \Tone) circle (2.5pt) node[below left] {\scriptsize$E'$};
+        \fill[blue] (1.48, \Tone) circle (2.5pt) node[below right] {\scriptsize$q'$};
+        \fill[blue] (2.70, \Tone) circle (2.5pt) node[below left] {\scriptsize$r'$};
+        \fill[red] (3.15, \Tone) circle (2.5pt) node[below right] {\scriptsize$F'$};
+
+        % 辅助垂直虚线
+        \draw[dotted, red, thick] (1.03, 0) -- (1.03, \Tone);
+        \draw[dotted, red, thick] (3.15, 0) -- (3.15, \Tone);
+        \draw[dotted, blue, thick] (1.48, 0) -- (1.48, \Tone);
+        \draw[dotted, blue, thick] (2.70, 0) -- (2.70, \Tone);
+
+        % 相区文本标注
+        \node[font=\large] at (3, 4.5) {$\alpha$}; 
+        \node[font=\large] at (2.1, 1.2) {$\alpha_1 + \alpha_2$}; 
+        \node[font=\scriptsize, red, align=center] at (1, 1.2) {亚\\稳\\区};
+        \node[font=\scriptsize, red, align=center] at (3.2, 1.2) {亚\\稳\\区};
+        \node[font=\scriptsize, blue, align=center] at (2.1, 0.8) {绝对不稳定区};
+        
+        % 图题
+        \node[below=1.2cm] at (2.5,0) {溶混间隙相图};
+    \end{scope}
+\end{tikzpicture}
+
+\end{document}

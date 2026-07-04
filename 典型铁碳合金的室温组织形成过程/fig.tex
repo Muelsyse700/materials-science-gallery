@@ -1,0 +1,140 @@
+\documentclass[varwidth=25cm, border=15pt]{standalone}
+
+
+\usepackage{tikz-cd}
+\usepackage{amsmath}
+\usepackage{lmodern}
+\usepackage[UTF8]{ctex}
+
+\begin{document}
+
+\begin{enumerate}
+    \item \textbf{工业纯铁}
+    \[\begin{tikzcd}[row sep=tiny,column sep=scriptsize]
+	{\text{L}} & {\text{L}} & \delta & \delta & \gamma & \gamma & \alpha && \alpha \\
+	& \delta && \gamma && \alpha & {\text{Fe}_3\text{C}_\text{III}} && {\text{Fe}_3\text{C}_\text{III}}
+	\arrow[from=1-1, to=1-2]
+	\arrow[from=1-1, to=2-2]
+	\arrow[from=1-2, to=1-3]
+	\arrow[from=1-3, to=1-4]
+	\arrow[from=1-3, to=2-4]
+	\arrow[from=1-4, to=1-5]
+	\arrow[from=1-5, to=1-6]
+	\arrow[from=1-5, to=2-6]
+	\arrow[from=1-6, to=1-7]
+	\arrow["{\text{降至室温}}", from=1-7, to=1-9]
+	\arrow[from=1-7, to=2-7]
+	\arrow[from=2-2, to=1-3]
+	\arrow[from=2-4, to=1-5]
+	\arrow[from=2-6, to=1-7]
+	\arrow["{\text{降至室温}}", from=2-7, to=2-9]
+    \end{tikzcd}\]
+    
+    \item \textbf{亚共析钢}
+    \[\begin{tikzcd}[row sep=tiny]
+	&&&&& {(\text{Fe}_3\text{C}_\text{III})} && \\
+	{\text{L}} && \gamma & \gamma && {\text{P}} && {\text{P}} \\
+	&&& \alpha && \alpha && \alpha
+	\arrow[dashed, from=1-6, to=2-8]
+	\arrow["{......}", from=2-1, to=2-3]
+	\arrow[from=2-3, to=2-4]
+	\arrow[from=2-3, to=3-4]
+	\arrow["{\text{共析反应}}", from=2-4, to=2-6]
+	\arrow[from=2-6, to=1-6]
+	\arrow["{\text{降至室温}}", from=2-6, to=2-8]
+	\arrow[from=3-4, to=3-6]
+	\arrow[from=3-6, to=3-8]
+    \end{tikzcd}\]
+    
+    \item \textbf{共析钢}
+    \[\begin{tikzcd}[row sep=tiny]
+	{\text{L}} & {\text{L}} & \gamma && {\text{P}} && {\text{P}} \\
+	& \gamma &&& {(\text{Fe}_3\text{C}_\text{III})}
+	\arrow[from=1-1, to=1-2]
+	\arrow[from=1-1, to=2-2]
+	\arrow[from=1-2, to=1-3]
+	\arrow["{\text{共析反应}}", from=1-3, to=1-5]
+	\arrow["{\text{降至室温}}", from=1-5, to=1-7]
+	\arrow[from=1-5, to=2-5]
+	\arrow[from=2-2, to=1-3]
+	\arrow[dashed, from=2-5, to=1-7]
+    \end{tikzcd}\]
+    
+    \item \textbf{过共析钢}
+    \[\begin{tikzcd}[row sep=tiny]
+	&&&& {(\text{Fe}_3\text{C}_\text{III})} && \\
+	{\text{L}} & {\text{L}} & \gamma && {\text{P}} && {\text{P}} \\
+	& \gamma & {\text{Fe}_3\text{C}_\text{II}} && {\text{Fe}_3\text{C}_\text{II}} && {\text{Fe}_3\text{C}_\text{II}}
+	\arrow[dashed, from=1-5, to=2-7]
+	\arrow[from=2-1, to=2-2]
+	\arrow[from=2-1, to=3-2]
+	\arrow[from=2-2, to=2-3]
+	\arrow["{\text{共析反应}}", from=2-3, to=2-5]
+	\arrow[from=2-3, to=3-3]
+	\arrow[from=2-5, to=1-5]
+	\arrow["{\text{降至室温}}", from=2-5, to=2-7]
+	\arrow[from=3-2, to=2-3]
+	\arrow[from=3-3, to=3-5]
+	\arrow["{\text{降至室温}}", from=3-5, to=3-7]
+    \end{tikzcd}\]
+    
+    \item \textbf{亚共晶白口铸铁}
+    \[\begin{tikzcd}[row sep=tiny]
+	&&& {(\text{Fe}_3\text{C}_\text{II})} && {(\text{Fe}_3\text{C}_\text{III})} && \\
+	{\text{L}} & {\text{L}} && {\text{L}_\text{d}} && {\text{L}'_\text{d}} && {\text{L}'_\text{d}} \\
+	& \gamma && {\text{Fe}_3\text{C}_\text{II}} && {\text{Fe}_3\text{C}_\text{II}} && {\text{Fe}_3\text{C}_\text{II}} \\
+	&&& \gamma && {\text{P}} && {\text{P}} \\
+	&&&&& {(\text{Fe}_3\text{C}_\text{III})}
+	\arrow[dashed, from=1-4, to=2-6]
+	\arrow[dashed, from=1-6, to=2-8]
+	\arrow[from=2-1, to=2-2]
+	\arrow[from=2-1, to=3-2]
+	\arrow["{\text{共晶反应}}", from=2-2, to=2-4]
+	\arrow[from=2-4, to=1-4]
+	\arrow["{\text{共析反应}}", from=2-4, to=2-6]
+	\arrow[from=2-6, to=1-6]
+	\arrow["{\text{降至室温}}", from=2-6, to=2-8]
+	\arrow[from=3-2, to=4-4]
+	\arrow[from=3-4, to=3-6]
+	\arrow["{\text{降至室温}}", from=3-6, to=3-8]
+	\arrow[from=4-4, to=3-4]
+	\arrow["{\text{共析反应}}", from=4-4, to=4-6]
+	\arrow["{\text{降至室温}}", from=4-6, to=4-8]
+	\arrow[from=4-6, to=5-6]
+	\arrow[dashed, from=5-6, to=4-8]
+    \end{tikzcd}\]
+    
+    \item \textbf{共晶白口铸铁}
+    \[\begin{tikzcd}[row sep=tiny]
+	&& {(\text{Fe}_3\text{C}_\text{II})} && {(\text{Fe}_3\text{C}_\text{III})} && \\
+	{\text{L}} && {\text{L}_\text{d}} && {\text{L}'_\text{d}} && {\text{L}'_\text{d}}
+	\arrow[dashed, from=1-3, to=2-5]
+	\arrow[dashed, from=1-5, to=2-7]
+	\arrow["{\text{共晶反应}}", from=2-1, to=2-3]
+	\arrow[from=2-3, to=1-3]
+	\arrow["{\text{共析反应}}", from=2-3, to=2-5]
+	\arrow[from=2-5, to=1-5]
+	\arrow["{\text{降至室温}}", from=2-5, to=2-7]
+    \end{tikzcd}\]
+    
+    \item \textbf{过共晶白口铸铁}
+    \[\begin{tikzcd}[row sep=tiny]
+	&&& {(\text{Fe}_3\text{C}_\text{II})} && {(\text{Fe}_3\text{C}_\text{III})} && \\
+	{\text{L}} & {\text{L}} && {\text{L}_\text{d}} && {\text{L}'_\text{d}} && {\text{L}'_\text{d}} \\
+	& {\text{Fe}_3\text{C}_\text{I}} && {\text{Fe}_3\text{C}_\text{I}} && {\text{Fe}_3\text{C}_\text{I}} && {\text{Fe}_3\text{C}_\text{I}}
+	\arrow[dashed, from=1-4, to=2-6]
+	\arrow[dashed, from=1-6, to=2-8]
+	\arrow[from=2-1, to=2-2]
+	\arrow[from=2-1, to=3-2]
+	\arrow["{\text{共晶反应}}", from=2-2, to=2-4]
+	\arrow[from=2-4, to=1-4]
+	\arrow["{\text{共析反应}}", from=2-4, to=2-6]
+	\arrow[from=2-6, to=1-6]
+	\arrow["{\text{降至室温}}", from=2-6, to=2-8]
+	\arrow[from=3-2, to=3-4]
+	\arrow[from=3-4, to=3-6]
+	\arrow[from=3-6, to=3-8]
+    \end{tikzcd}\]
+\end{enumerate}
+
+\end{document}

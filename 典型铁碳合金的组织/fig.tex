@@ -1,0 +1,111 @@
+\documentclass[tikz, border=5pt]{standalone}
+
+\usetikzlibrary{arrows.meta} 
+\usepackage{amsmath}
+\usepackage[UTF8]{ctex}
+
+\begin{document}
+
+\begin{tikzpicture}[x=1.8cm, y=0.008cm, >=stealth, scale=0.85, font=\small]
+
+    % --- 坐标轴与边框 ---
+    \draw[thick] (0,350) rectangle (6.69, 1600);
+    
+    % X轴刻度与标签
+    \foreach \x in {1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 6.69} {
+        \draw (\x, 350) -- (\x, 365);
+        \node[below] at (\x, 340) {\x};
+    }
+    \node[below] at (0, 340) {Fe};
+    \node[below] at (3.345, 250) {$w(\text{C})/\%$};
+    
+    % 左侧Y轴刻度与标签
+    \foreach \y in {400, 600, 800, 1000, 1200, 1400, 1600} {
+        \draw (0, \y) -- (0.05, \y);
+        \node[left] at (-0.1, \y) {\y};
+    }
+    \node[rotate=90] at (-1, 800) {温度 / $^\circ$C};
+
+    % --- 绘制 Fe-Fe3C 稳定相图 (实线) ---
+    % 左上角包晶区
+    \draw[thick] (0, 1538) -- (0.09, 1495); % A-H
+    \draw[thick] (0.17, 1495) -- (0, 1394);
+    \draw[thick] (0, 1538) -- (0.53, 1495); % A-B
+    \draw[thick] (0.09, 1495) -- (0, 1394);
+    
+    % 奥氏体区边界
+    \draw[thick] (0.17, 1495) -- (2.11, 1148); % J-E
+    \draw[thick] (0, 912) to[out=-70, in=155] (0.77, 727); % G-S
+    \draw[thick] (2.11, 1148) to[out=-132, in=57] (0.77, 727); % E-S
+    
+    % 液相线边界
+    \draw[thick] (0.53, 1495) to[out=-19, in=150] (4.30, 1148); % B-C
+    
+    % 共晶线与共析线
+    \draw[very thick] (2.11, 1148) -- (6.69, 1148); % E-F 共晶线
+    \draw[very thick] (0.09, 727) -- (6.69, 727); % P-K 共析线
+    \draw[very thick] (0.53, 1495) -- (0.09, 1495); % H-B 包晶线
+    
+    % 铁素体溶解度线
+    \draw[thick] (0, 912) to[out=-80, in=90] (0.09, 727); % G-P
+    \draw[thick] (0.09, 727) to[out=-90, in=80] (0, 480); % P-Q
+
+    \draw[thick, dash dot] (4.30, 1148) to[out=20, in=180] (6.69, 1227); 
+    
+    % --- 节点字母与特征数值标注 ---
+    \node[left] at (0, 1555) {\scriptsize$A$};
+    \draw (0.09, 1495) -- (-0.2, 1500) node[left] {\scriptsize$H$};
+    \node[below right] at (0.05, 1478) {\scriptsize$J$};
+    \node[right] at (0.33, 1467) {\scriptsize$B$};
+    \node[left] at (0, 1445) {\scriptsize$N$};
+    \node[left] at (0, 912) {\scriptsize$G$};
+    \node[right] at (0.02, 700) {\scriptsize$P$};
+    \node[left]  at (0, 480) {\scriptsize$Q$};
+
+    \node[below right] at (2.11, 1140) {\scriptsize$E(2.11)$};
+    \node[below] at (4.30, 1140) {\scriptsize$C(4.30)$};    
+    \node[below] at (0.77, 715) {\scriptsize$S(0.77)$};
+
+    % 右侧边界与延伸标签
+    \node[above right] at (6.69, 1227) {\scriptsize$D$};
+    \node[below right] at (6.69, 1148) {\scriptsize$F$};
+    \node[below right] at (6.69, 727) {\scriptsize$K$};
+    
+    \draw[dotted, thick] (0.77,350) -- (0.77,727);
+    \draw[dotted, thick] (4.30,350) -- (4.30,1148);
+    \draw[dotted, thick] (0.09,350) -- (0.09,727);
+    \draw[dotted, thick] (2.11,350) -- (2.11,1148);
+
+
+    % --- 内部组织标注 ---
+    \draw (0.02, 1468) -- (-0.6, 1468) node[left,align=center] {$\delta(\text{Fe})$\\[-0.5em]{\scriptsize 高温铁素体}};
+    \node at (3.5, 1450) {L};
+    \node at (2.0, 1300) {L$+\gamma$};
+    \node at (6.15, 1190) {\scriptsize L$+\text{Fe}_3\text{C}_\text{I}$};
+    \draw (0.35, 750) -- (0.5,820) node[above] {\scriptsize $\alpha+\gamma$};
+    \draw (0.04,700) -- (-0.2,710) node[left] {\scriptsize $\alpha$};
+    \draw (0.09,1470) -- (0.27,1370) node[below] {\scriptsize $\delta+\gamma$};
+    \draw (0.23,1510) -- (0.39,1530) node[right] {\scriptsize L$+\delta$};
+    \node[align=center] at (0.80, 1100) {$\gamma(\text{Fe})$\\[-0.5em]{\scriptsize 奥氏体A}};
+    \node at (1.6, 830) {\scriptsize $\gamma+\text{Fe}_3\text{C}_\text{II}$};
+    \node at (3.2, 940) {\scriptsize $\gamma+\text{Fe}_3\text{C}_\text{II}+\text{L}_\text{d}$};
+    \node at (5.5, 940) {\scriptsize $\text{Fe}_3\text{C}_\text{I}+\text{L}_\text{d}$};
+    \node[fill=white] at (4.3, 940) {\scriptsize $\text{L}_\text{d}$};
+    \draw (0.04,420) -- (-0.4,480) node[left,align=center] {\scriptsize 工业纯铁\\[-0.9em]\scriptsize $\alpha+\text{Fe}_3\text{C}_\text{III}$};
+    \node[align=center] at (0.43, 420) {\scriptsize 亚共\\[-0.9em]\scriptsize 析钢\\[-0.9em]\scriptsize $\alpha+\text{P}$};
+    \node[align=center] at (1.45, 420) {\scriptsize 过共析钢\\[-0.9em]\scriptsize $\text{P}+\text{Fe}_3\text{C}_\text{II}$};
+    \node[fill=white,align=center] at (0.77, 560) {\scriptsize 共析钢\\[-0.9em]\scriptsize $\text{P}$};
+    \node[align=center] at (3.2, 420) {\scriptsize 亚共晶白口铸铁\\[-0.8em]\scriptsize $\text{P}+\text{Fe}_3\text{C}_\text{II}+\text{L}'_\text{d}$};
+    \node[fill=white,align=center] at (4.3, 560) {\scriptsize 共晶白口铸铁\\[-0.8em]\scriptsize $\text{L}'_\text{d}$};
+    \node[align=center] at (5.5, 420) {\scriptsize 过共晶白口铸铁\\[-0.8em]\scriptsize $\text{Fe}_3\text{C}_\text{I}+\text{L}'_\text{d}$};
+
+    % 底部红绿蓝区域分类线
+    \draw[very thick,red] (0,260) -- (0.09,260);
+    \node[below,red] at (0.045,260) {\scriptsize 工业纯铁};
+    \draw[very thick,green] (0.09,260) -- (2.11,260);
+    \node[below,green] at (1.01,260) {\scriptsize 钢};
+    \draw[very thick,blue] (2.11,260) -- (6.69,260);
+    \node[below,blue] at (4.4,260) {\scriptsize 铸铁};
+\end{tikzpicture}
+
+\end{document}
